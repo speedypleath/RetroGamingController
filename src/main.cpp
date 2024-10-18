@@ -28,14 +28,22 @@ void FillLEDsFromPaletteColors(uint8_t colorIndex)
     }
 }
 
+// This function fills the palette with totally random colors.
+void SetupTotallyRandomPalette()
+{
+    for( int i = 0; i < 16; ++i) {
+        currentPalette[i] = CHSV( random8(), 255, random8());
+    }
+}
+
 void ChangePaletteOnPress() {
     if(palleteCount ==  0)  { 
         currentPalette = RainbowColors_p;         
         currentBlending = LINEARBLEND; 
     }
     if(palleteCount == 1)  { 
-        currentPalette = RainbowStripeColors_p;   
-        currentBlending = NOBLEND;  
+        SetupTotallyRandomPalette();   
+        currentBlending = LINEARBLEND;
     }
     if(palleteCount == 2)  { 
         currentPalette = RainbowStripeColors_p;   
@@ -45,7 +53,11 @@ void ChangePaletteOnPress() {
         currentPalette = PartyColors_p;           
         currentBlending = LINEARBLEND; 
     }
-    palleteCount = (palleteCount + 1) % 4;
+    if(palleteCount == 4) {
+        currentPalette = RainbowStripeColors_p;   
+        currentBlending = NOBLEND;  
+    }
+    palleteCount = (palleteCount + 1) % 5;
 }
 
 void setup() {
