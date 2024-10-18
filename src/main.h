@@ -3,5 +3,5 @@
 
 void setup();
 void loop();
-
+FillLEDsFromPaletteColors(uint8_t colorIndex);
 #endif  // _MAIN_H_
